@@ -1,0 +1,63 @@
+<p>add-product works!</p>
+
+<form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+ <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" formControlName="title" placeholder="Title" />
+                <div *ngIf="
+              !addProductForm.controls['title'].valid &&
+              (addProductForm.controls['title'].touch ||
+                addProductForm.controls['title'].dirty)
+            ">
+                    <div *ngIf="addProductForm.controls['title'].errors.required" class="alert alert-danger">
+                        Title is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="number" formControlName="price" placeholder="Price"
+                    onkeypress="return event.charCode >= 48" />
+                <div *ngIf="
+              !addProductForm.controls['price'].valid &&
+              (addProductForm.controls['price'].touch ||
+                addProductForm.controls['price'].dirty)
+            ">
+                    <div *ngIf="addProductForm.controls['price'].errors.required" class="alert alert-danger">
+                        price is required
+                    </div>
+                    <div *ngIf="addProductForm.controls['price'].errors.min" class="alert alert-danger">
+                        minimum price value must be one
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="number" formControlName="stock" placeholder="Stock"
+                    onkeypress="return event.charCode >= 48" />
+                <div *ngIf="
+              !addProductForm.controls['stock'].valid &&
+              (addProductForm.controls['stock'].touch ||
+                addProductForm.controls['stock'].dirty)
+            ">
+                    <div *ngIf="addProductForm.controls['stock'].errors.required" class="alert alert-danger">
+                        stock is required
+                    </div>
+                    <div *ngIf="addProductForm.controls['stock'].errors.min" class="alert alert-danger">
+                        minimum stock value must be one
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success" [disabled]="!addProductForm.valid">
+                    Submit
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button type="reset" class="btn btn-danger" (click)="onReset()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

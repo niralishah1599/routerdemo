@@ -1,0 +1,58 @@
+<button (click)="callToAddProduct();" class="btn btn-primary"> Add Product</button>
+
+<div class="form-group">
+ <input type="text" class="form-control" style="width:800px;" [(ngModel)]="searchItem" (ngModelChange)="filterProduct();" />
+</div>
+<table class="table" border="1" style="text-align: center;">
+    <thead>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Add Stock</th>
+        <th>TotalPrice</th>
+        <th>Delete Product</th>
+        <th>Edit</th>
+        <th>Add to Cart</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of productList   ">
+            <td>{{ product.id }}</td>
+            <td>{{ product.title  }}</td>
+            <td>{{ product.price | currency:'INR' }} </td>
+            <td>{{ product.stock }}</td>
+            <td>
+                <app-stock-update [stock]="product.stock" [productDetail]="product" [fromComp]="'productListComponent'"
+                    (updateStock)="updateProductStock(product)"></app-stock-update>
+            </td>
+            <td>{{ product.price * product.stock }}</td>
+            <td><button (click)="callToDeleteProduct(product.id);" class="btn btn-danger">Delete</button> </td>
+            <td><button (click)="callToEditProduct(product.id)" class="btn btn-info">Edit</button></td>
+            <td><button (click)="callToAddToCard(product.id)" class="btn btn-primary">Add To Cart</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Total</td>
+            <td>{{ _ProductListService.totalprice() }}</td>
+
+            <td>{{ _ProductListService.totalStock()  }}</td>
+            <td>Total is=</td>
+            <td>{{ sumTotal() }}</td>
+            <td></td>
+            <td><button (click)="callToShowProduct(totalCartItem)" class="btn btn-primary">Show Cart Product</button>
+            </td>
+            <td>{{ _AddToCartServices.addToCartServices.length }}</td>
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+     
+      <li class="page-item"><a class="page-link" href="products/productlist">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">5</a></li>
+    
+    </ul>
+  </nav>

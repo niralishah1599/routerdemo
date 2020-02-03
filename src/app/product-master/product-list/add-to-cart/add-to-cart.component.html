@@ -1,0 +1,34 @@
+<table class="table" border="1" style="text-align: center;">
+    <thead>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Delete</th>
+    </thead>
+
+    <tr *ngFor="let cart of addToCartList">
+        <td>{{cart.id}}</td>
+        <td>{{cart.title}}</td>
+        <td>{{cart.price}}</td>
+        <td>{{cart.stock}}</td>
+        <td>
+            <app-stock-update [stock]="cart.stock" [productDetail]="cart" [fromComp]="'cartComponent'">
+            </app-stock-update>
+        </td>
+        <td>{{cart.price * cart.quantity}}</td>
+        <td><button (click)="callToDeleteProduct(cart.id)" class="alert alert-danger">Delete</button></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>{{  _addToCartServices.totalprice() }}</td>
+        <td></td>
+        <td>{{ totalQuantity() }}</td>
+        <td>{{ sumTotal() }}</td>
+    </tr>
+</table>
+<div style="float: right;margin-right: 50px;"><button (click)="redirectToProductList()" routerLinkActive="active"
+        class="alert alert-danger">Back</button></div>
